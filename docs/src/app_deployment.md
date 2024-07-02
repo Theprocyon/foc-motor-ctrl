@@ -477,6 +477,10 @@ The following images show what the dashboard looks like when a larger load is ap
   ros2 service call /kd240/target canopen_interfaces/srv/COTargetDouble "target: 3000"
   ```
 
+  > **Note**: For the Anaheim motor kit, the speed range is 250 to 10000 rpm in
+  both directions. If the motor does not spin at 250 rpm, try a faster speed.
+  The minimum speed can vary by motor.
+
 #### Run a ROS2 Control based example
 
 * In the docker run terminal start the canopen 402 control system host using the launch file
