@@ -266,7 +266,7 @@ The following images show what the dashboard looks like when a larger load is ap
   to enable to PMOD-CAN interface on KR260.
 
   ```bash
-  sudo apt install kr260-tsn-rs485pmod
+  sudo apt install xlnx-firmware-kr260-tsn-rs485pmod
   sudo xmutil unloadapp
   sudo xmutil loadapp kr260-tsn-rs485pmod
   ```
@@ -277,6 +277,12 @@ The following images show what the dashboard looks like when a larger load is ap
   sudo ip link set can0 up type can bitrate 100000
   sudo ip link set can0 txqueuelen 10000
   sudo ip link set can0 up
+  ```
+
+* Verify the CAN interface state
+
+  ```bash
+  ip -d -s link show can0
   ```
 
 * Install can-utils on both the KR260 and KD240.
@@ -348,6 +354,14 @@ The following images show what the dashboard looks like when a larger load is ap
       -v /run:/run \
       -it foc-motor-ctrl-ros2-canopen-host:latest bash
   ```
+
+* Inside the container, run canopen host tests using the launch file described in the following
+  subsections. There are 2 tests:
+
+  * *Simple CiA402 system*: where host accesses motor directly using ros2_canopen 402 driver.
+  * *ROS2 Control example*: where host accesses motor over ros2_control interface.
+
+  > **Note**: Do not run both the launch files together as they will interfere in the operations. Only one test can be running at a given time.
 
 #### Run a simple CiA402 system host
 
@@ -462,6 +476,10 @@ The following images show what the dashboard looks like when a larger load is ap
   ```bash
   ros2 service call /kd240/target canopen_interfaces/srv/COTargetDouble "target: 3000"
   ```
+
+  > **Note**: For the Anaheim motor kit, the speed range is 250 to 10000 rpm in
+  both directions. If the motor does not spin at 250 rpm, try a faster speed.
+  The minimum speed can vary by motor.
 
 #### Run a ROS2 Control based example
 
