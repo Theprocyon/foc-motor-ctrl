@@ -352,7 +352,7 @@ The following images show what the dashboard looks like when a larger load is ap
       -v /etc/vart.conf:/etc/vart.conf \
       -v /lib/firmware/xilinx:/lib/firmware/xilinx \
       -v /run:/run \
-      -it foc-motor-ctrl-ros2-canopen-host:latest bash
+      -it xilinx/foc-motor-ctrl-ros2-canopen-host:latest bash
   ```
 
 * Inside the container, run canopen host tests using the launch file described in the following
