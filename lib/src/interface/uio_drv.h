@@ -5,6 +5,7 @@
 #ifndef _UIO_DRV_H_
 #define _UIO_DRV_H_
 
+#include <cstdint>
 #include <string>
 
 class UioDrv
