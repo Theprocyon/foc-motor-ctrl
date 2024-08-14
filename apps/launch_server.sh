@@ -28,7 +28,7 @@ fi
 
 FW_STATUS=$($SUDO xmutil listapps | grep ${FW_NAME} | awk '{print $6}' | cut -d',' -f1)
 
-if [ "$FW_STATUS" -eq 0 ]; then
+if [ "$FW_STATUS" -eq 0 ] || [ "$FW_STATUS" = "(0+0)" ]; then
 	echo "Firmware $FW_NAME is loaded"
 else
 	echo "fw $FW_NAME is not loaded !!"

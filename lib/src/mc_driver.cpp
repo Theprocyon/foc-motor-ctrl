@@ -8,6 +8,7 @@
 #include "mc_driver.h"
 #include "fcntl.h"
 #include "unistd.h"
+#include <cstdint>
 
 /*
  * Hardware Offsets

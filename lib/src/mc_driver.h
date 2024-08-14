@@ -6,6 +6,7 @@
 #ifndef _MCUIO_H_
 #define _MCUIO_H_
 
+#include <cstdint>
 #include "../include/motor-control/motor-control.hpp"
 #include "event_control.h"
 #include "interface/uio_drv.h"
