@@ -63,7 +63,7 @@ This repository provides a field oriented control based motor control library an
     sudo make install
     ```
 
-    > With above configurations, the libraries are installed in `/opt/xilinx/xlnx-app-kd240-foc-motor-ctr/lib`.
+    > With above configurations, the libraries are installed in `/opt/xilinx/xlnx-app-kd240-foc-motor-ctrl/lib`.
 
 ## Run the Application
 
@@ -80,12 +80,12 @@ sudo apt install libiio-utils libiio0 python3-pybind11 python3-bokeh=2.4.3-0ubun
 #### Run the Application
 
 ```
-export PATH=${PATH}:/opt/xilinx/xlnx-app-kd240-foc-motor-ctr/bin
+export PATH=${PATH}:/opt/xilinx/xlnx-app-kd240-foc-motor-ctrl/bin
 start_motor_dashboard
 ```
 
 > The `start_motor_dashboard` script is renamed from `apps/launch_dashboard.sh`
-and is designed to run with `/opt/xilinx/xlnx-app-kd240-foc-motor-ctr` as the default
+and is designed to run with `/opt/xilinx/xlnx-app-kd240-foc-motor-ctrl` as the default
 prefix. The script sets the library path automatically and launches the bokeh
 server with the IP address of the board. Update the script if different prefix
 is being used.
