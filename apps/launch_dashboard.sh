@@ -26,11 +26,20 @@ else
 	export LD_LIBRARY_PATH=$LIBPATH
 fi
 
-# check if the fw is loaded
+# Find the Active_slot column
+ACTIVE_SLOT_COL=$($SUDO xmutil listapps | head -1 | awk '{
+	for (col=1; col<=NF; col++) {
+		if ($col == "Active_slot") {
+			print col  # Print the column for Active_slot
+			exit
+		}
+	}
+}')
 
-FW_STATUS=$($SUDO xmutil listapps | grep ${FW_NAME} | awk '{print $6}' | cut -d',' -f1)
+# Check if the fw is loaded
+FW_STATUS=$($SUDO xmutil listapps | grep ${FW_NAME} | awk -v col=$ACTIVE_SLOT_COL '{print $col}' | cut -d',' -f1)
 
-if [ "$FW_STATUS" -eq 0 ] || [ "$FW_STATUS" = "(0+0)" ]; then
+if [ "$FW_STATUS" -eq 0 ]; then
 	echo "Firmware $FW_NAME is loaded"
 else
 	echo "fw $FW_NAME is not loaded !!"
