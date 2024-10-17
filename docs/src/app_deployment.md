@@ -16,7 +16,47 @@
 
 This document shows how to set up the board, and run the motor control application.
 
-This guide is targeted for Ubuntu® 22.04 and the AMD 2023.1 toolchain.
+This guide is targeted for Ubuntu® 24.04 and the AMD 2024.1 toolchain.
+
+## Revision History
+
+### Version - v0.5
+
+Refreshed app for Ubuntu 24.04 compatibility with updates across the library and documentation.
+
+#### Change Log
+
+Library & Apps:
+
+* Fixed missing header `<cstdint>` in lib files.
+* Updated Dashboard and ROS CANOpen app scripts.
+
+Documentation:
+
+* Updated library installation path in the documentation for accuracy.
+* Adjusted Bokeh server port from 5006 to 3006 to avoid conflicts with the kria-dashboard app.
+* Added notes on minimum speed settings and clarified CANopen test instructions.
+* Corrected firmware naming for consistency.
+
+### Version - v0.4
+
+Added support of CANopen server to access the motor control library.
+
+#### Change Log
+
+Library:
+
+* Config file based motor configurations management.
+The motor configuration can be tweaked / updated from /etc/motor_control/config file
+
+Apps
+
+* Provides CANopen CiA 402 based canopen server.
+
+Tests:
+
+* Example to access the canopen server over ros2_canopen framework.
+* Example to access the canopen server from within ros2_control framework.
 
 ## Prerequisite
 
@@ -80,23 +120,32 @@ connects to ground and Yellow/White is Sense(data)
 
 ### Tested Artifacts
 
-Testing was performed with the following artifacts:
+**_Platform artifacts_**
 
-#### KD240 platform Artifacts
-
-| Component                      | Version                    |
-|--------------------------------|----------------------------|
-| Boot Firmware                  | K24-BootFW-01.01           |
-| Linux Kernel                   | 5.15.0-1030-xilinx-zynqmp  |
-| xlnx-firmware-kd240-motor-ctrl | 0.12-0xlnx2                |
+| Components                           | Versions           |
+| ------------------------------------ | ------------------ |
+| Ubuntu                               | 24.04 Noble        |
+| Linux kernel                         | 6.8.0-1008-xilinx  |
+| Boot firmware                        | K24-BootFW-01.02   |
+| xlnx-firmware-kd240-motor-ctrl-qei   | 1.0-0xlnx2         |
 
 To obtain the latest Linux image and boot firmware, refer to the [Kria Wiki](https://xilinx-wiki.atlassian.net/wiki/spaces/A/pages/1641152513/Kria+K26+SOM#Boot-Firmware-Updates).
 
-#### Application Packages
+**_Application artifacts_**
 
-| Package                        | Version      |
-|--------------------------------|--------------|
-| xlnx-app-kd240-foc-motor-ctrl  | 0.4-0xlnx1   |
+| Application Package            | ubuntu versions |
+| ------------------------------ | --------------- |
+| xlnx-app-kd240-foc-motor-ctrl  | 0.5-0xlnx1      |
+
+
+#### Repositories Information
+
+| Repository                                                                                             | Release Tag                   |
+| ------------------------------------------------------------------------------------------------------ | ----------------------------- |
+| [Kria SOM Vitis Platforms and Overlays](https://github.com/Xilinx/kria-vitis-platforms)                | [v1.0](https://github.com/Xilinx/kria-vitis-platforms/releases/tag/v1.0)        |
+| [Kria FOC Motor Control App](https://github.com/Xilinx/foc-motor-ctrl)                                 | [v0.5](https://github.com/Xilinx/foc-motor-ctrl/tree/v0.5)        |
+| [Kernel drivers for the FOC Motor Control App](https://github.com/Xilinx/motor-control-iio-modules)    | [v0.2](https://github.com/Xilinx/motor-control-iio-modules/releases/tag/v0.2)        |
+
 
 ### Initial Setup
 
@@ -104,24 +153,12 @@ To obtain the latest Linux image and boot firmware, refer to the [Kria Wiki](htt
 
 2. Get the latest motor control application and firmware package:
 
-   * Download the firmware.
-      * Search package feed for packages compatible with the KD240.
+   * Install the firmware.
 
-         ```bash
-         ubuntu@kria:~$ sudo apt search xlnx-firmware-kd240
-         Sorting... Done
-         Full Text Search... Done
-         xlnx-firmware-kd240-bist/jammy,now 0.10-0xlnx1 arm64 [installed]
-         FPGA firmware for Xilinx boards - kd240 bist application
-         xlnx-firmware-kd240-motor-ctrl-qei/jammy,now 0.10-0xlnx1 arm64 [installed]
-         FPGA firmware for Xilinx boards - kd240 motor-ctrl-qei application
-         ```
-
-      * Install the firmware binaries.
-
-         ```bash
-         sudo apt install xlnx-firmware-kd240-motor-ctrl-qei
-         ```
+       ```bash
+       sudo apt install xlnx-firmware-kd240-motor-ctrl-qei
+       ```
+       > **Note:** The `motor-control-iio-modules` package will be installed automatically as a dependency when the firmware is installed.
 
    * Install the motor control application.
 
@@ -132,6 +169,7 @@ To obtain the latest Linux image and boot firmware, refer to the [Kria Wiki](htt
 
       sudo apt install xlnx-app-kd240-foc-motor-ctrl
       ```
+      >**Note:** The packages `pybind11`, `libiio-utils` and `bokeh` will be installed as dependencies when the application is installed.
 
 3. Install lm-sensors package for One Wire Temperature sensor
 
@@ -147,9 +185,8 @@ To obtain the latest Linux image and boot firmware, refer to the [Kria Wiki](htt
 
   ```bash
   ubuntu@kria:~$ sudo xmutil listapps
-         Accelerator          Accel_type                 Base           Base_type      #slots(PL+AIE)    Active_slot
-
-    kd240-motor-ctrl-qei       XRT_FLAT         kd240-motor-ctrl-qei     XRT_FLAT            (0+0)           -1
+                   Accelerator      Accel_type                          Base Pid       Base_type  #slots(PL+AIE)     Active_slot
+          kd240-motor-ctrl-qei        XRT_FLAT          kd240-motor-ctrl-qei  ok        XRT_FLAT           (0+0)              -1
   ```
 
 * Load the desired application firmware.
@@ -185,9 +222,25 @@ Note: Only one interface can used at a time.
   # Enter the sudo password if required and note the ip address of the board
   ```
 
-  Sample screenshot of the terminal on launching the motor dashboard.
+  Sample output of the terminal on launching the motor dashboard.
 
-  ![Terminal](./media/terminal.png)
+  ```bash
+  ubuntu@kria:~$ sudo xmutil unloadapp
+  remove from slot 0 returns: 0 (Ok)
+  ubuntu@kria:~$ sudo xmutil loadapp kd240-motor-ctrl-qei
+  kd240-motor-ctrl-qei: loaded to slot 0
+  ubuntu@kria:~$ export PATH=${PATH}:/opt/xilinx/xlnx-app-kd240-foc-motor-ctrl/bin
+  ubuntu@kria:~$ start_motor_dashboard
+  Please enter the password for sudo access
+  [sudo] password for ubuntu:
+  Firmware kd240-motor-ctrl-qei is loaded
+  To the access the Application, enter "10.0.0.153:3006" in the host machine's browser.
+  ubuntu@kria:~$ 2024-10-04 15:58:02,892 Starting Bokeh server version 2.4.3 (running on Tornado 6.4)
+  2024-10-04 15:58:02,901 User authentication hooks NOT provided (default user enabled)
+  2024-10-04 15:58:02,924 Bokeh app running at: http://localhost:3006/dashboard
+  2024-10-04 15:58:02,924 Starting Bokeh server with process id: 52668
+  gio: http://localhost:3006/dashboard: Operation not supported
+  ```
 
 * Change Motor Configurations:
 
@@ -200,7 +253,7 @@ Note: Only one interface can used at a time.
 
   To run the Bokeh server with a specific configuration file, use the following command structure:
     ```bash
-    sudo bokeh serve --show --allow-websocket-origin=<ip>:5006 mc_bokeh.py --args </path/to/config/file>
+    sudo bokeh serve --port 3006 --show --allow-websocket-origin=<ip>:3006 mc_bokeh.py --args </path/to/config/file>
     ```
   Replace <ip> with board `ip` and `<path/to/config/file>` with the actual path to the desired configuration file.
 
@@ -208,7 +261,7 @@ Note: Only one interface can used at a time.
 
 ## On the Host PC
 
-* Open &lt;ip&gt;:5006 in a web browser.
+* Open &lt;ip&gt;:3006 in a web browser.
 
   >**NOTE:** Once the server is running, it retains its settings no matter how many times the browser is closed, opened, or refreshed.
 

@@ -1,6 +1,5 @@
 # FOC Motor Control App
 [![Docs](https://img.shields.io/badge/-Documention-blue)](https://xilinx.github.io/kria-apps-docs)
-[![prebuilt](https://img.shields.io/badge/-Prebuilt_Images-blueviolet)](#prebuilt-images)
 [![License](https://img.shields.io/badge/license-MIT-green)](./LICENSE)
 
 This repository provides a field oriented control based motor control library and application interface to use it. This library provides both C++ interface as well as Python interface.
@@ -67,28 +66,7 @@ This repository provides a field oriented control based motor control library an
 
 ## Run the Application
 
-### Install Prerequisites
-
-```
-# Install the firmware
-sudo apt install xlnx-firmware-kd240-motor-ctrl-qei
-
-# Install the app dependencies
-sudo apt install libiio-utils libiio0 python3-pybind11 python3-bokeh=2.4.3-0ubuntu1
-```
-
-#### Run the Application
-
-```
-export PATH=${PATH}:/opt/xilinx/xlnx-app-kd240-foc-motor-ctrl/bin
-start_motor_dashboard
-```
-
-> The `start_motor_dashboard` script is renamed from `apps/launch_dashboard.sh`
-and is designed to run with `/opt/xilinx/xlnx-app-kd240-foc-motor-ctrl` as the default
-prefix. The script sets the library path automatically and launches the bokeh
-server with the IP address of the board. Update the script if different prefix
-is being used.
+For detailed instructions on how to deploy the application, please refer to the [FOC Motor Control Application Deployment Page](https://xilinx.github.io/kria-apps-docs/kd240/build/html/docs/foc-motor-ctrl/src/app_deployment.html).
 
 ## License
 
