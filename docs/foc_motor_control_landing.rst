@@ -2,14 +2,17 @@
 FOC Motor Control Application
 ##################################################
 
-*******************************
-Overview
-*******************************
+
+.. include:: ../../../../shared/somtoctree.txt
+
+
 
 .. toctree::
    :maxdepth: 1
+   :caption: Overview
 
-   Introduction <src/introduction.md>
+   Introduction <docs/introduction.md>
+
 
 Features
 ================================
@@ -26,65 +29,74 @@ Features
 * AMD Vitis™ Motor Control Libraries based HLS IP
 * C++ and Python library for using entire motor control stack
 
-*******************************
-Quick Start
-*******************************
+
 
 .. toctree::
    :maxdepth: 1
+   :caption: Quick Start
 
-   Setting Up the Board and Application deployment <src/app_deployment.md>
+   Setting Up the Board and Application deployment <docs/app_deployment.md>
 
-***************************
-Tutorials
-***************************
+
 
 .. toctree::
    :maxdepth: 1
+   :caption: Tutorials
 
-   Building the Design Components <https://xilinx.github.io/kria-apps-docs/kd240/building_the_design.html>
-   Building the Hardware Design Using Vivado <https://xilinx.github.io/kria-apps-docs/kd240/build_vivado_design.html>
-   Generating Custom Firmware <https://xilinx.github.io/kria-apps-docs/kd240/generating_custom_firmware.html>
+   Building the Design Components <docs/building_the_design>
+   Building the Hardware Design Using Vivado <docs/build_vivado_design>
+   Generate Custom Firmware <docs/generating_custom_firmware>
    Building the Application <https://github.com/Xilinx/foc-motor-ctrl/blob/main/README.md#build-instructions>
 
-******************
-Architecture
-******************
+
+
 
 .. toctree::
    :maxdepth: 1
+   :caption: Architecture
 
-   Hardware Architecture <src/hw_description.md>
-   Software Architecture <src/sw_arch.md>
+   Hardware Architecture <docs/hw_description.md>
+   Software Architecture <docs/sw_arch.md>
 
-*******************************
-Repository
-*******************************
 
-.. toctree::
-  :maxdepth: 1
 
-  Software Repository <https://github.com/Xilinx/foc-motor-ctrl>
-
-*******************************
-Other
-*******************************
 
 .. toctree::
-  :maxdepth: 1
+   :maxdepth: 1
+   :caption: Repository
 
-  Known Issues <src/known_issues.md>
+   Software Repository <https://github.com/Xilinx/foc-motor-ctrl>
 
-..
-   License
-   Licensed under the Apache License, Version 2.0 (the "License"); you may not
-   use this file except in compliance with the License.
 
-   You may obtain a copy of the License at
-   http://www.apache.org/licenses/LICENSE-2.0.
+.. toctree::
+   :maxdepth: 1
+   :caption: Other
 
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
-   WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
-   License for the specific language governing permissions and limitations under
-   the License.
+   Known Issues <docs/known_issues.md>
+
+
+
+.. important::
+   Previous releases:
+
+   * `FOC 0.5 <https://pages.gitenterprise.xilinx.com/techdocs/SOM/kd240/foc-motor-ctrl/0_5/build/html/foc_motor_control_landing.html>`_
+
+
+
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Other KD240 Applications
+
+   BIST <https://pages.gitenterprise.xilinx.com/techdocs/SOM/kd240/bist.html>
+   ROS 2 Multi-Node Communications Via TSN <https://pages.gitenterprise.xilinx.com/techdocs/SOM/kd240/ros2_multinode_communication_via_tsn.html>
+
+
+
+
+
+
+
+.. Copyright © 2024 Advanced Micro Devices, Inc
+
+.. `Terms and Conditions <https://www.amd.com/en/corporate/copyright>`_.
