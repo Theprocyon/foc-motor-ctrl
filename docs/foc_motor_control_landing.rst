@@ -84,16 +84,6 @@ Features
 
 
 
-.. toctree::
-   :maxdepth: 1
-   :caption: Other KD240 Applications
-
-   BIST <https://pages.gitenterprise.xilinx.com/techdocs/SOM/kd240/bist.html>
-   ROS 2 Multi-Node Communications Via TSN <https://pages.gitenterprise.xilinx.com/techdocs/SOM/kd240/ros2_multinode_communication_via_tsn.html>
-
-
-
-
 
 
 
