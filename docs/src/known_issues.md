@@ -63,17 +63,32 @@ If the motor control application is not functioning as intended, follow these de
    2023-09-13 18:47:32,361 WebSocket connection closed: code=None, reason=None
    ``````
 
-# CAN bus issue
+# CAN Bus Issue
 
-Sometime, if the CANopen setup is left running for long time, them TX queue of the CAN interface can fillup resulting in the interface hang, especially on KR260.
-There is no indication for this situation except KR260 and KD240 do not receive can message. To fix this just bring the can interface down and up again.
+When experiencing intermittent communication issues during experiments with the KD240-KR260 board setup for ROS2 CANopen application, the motor may not respond to control commands. In such cases, use the commands below to reset the CAN interface on the KR260 board, then rerun the control commands. Also, ensure that all cables are of good quality and securely connected, as poor connections can lead to communication issues. If you are using a Pmod CAN connector, consider swapping it with a different Pmod connector if problems persist. 
+
+Additionally, if the CANopen setup is left running for an extended period, the TX queue of the CAN interface might fill-up resulting in the interface hang, especially on the KR260 board.
+There are no indications for this situation other than the KR260 and KD240 not receiving CAN messages. 
+
+To resolve this issue, reset the Pmod CAN interface using the following commands on KR260 board:
 
 ```bash
 sudo ip link set can0 down
 sudo ip link set can0 up
 ```
+If this issue occurs frequently, consider increasing the TX queue length on KR260 with `sudo ip link set can0 txqueuelen 20000`.
 
-If this is frequent enough then consider increasing the tx queue length on KR260 with `sudo ip link set can0 txqueuelen 10000`
+# System Crash During Application Reload
+
+There is a known issue of system crash during the reload of the kd240-motor-ctrl-qei application. While the initial load and unload process works correctly, subsequent attempts to load the application result in a system crash. To prevent this, it is recommended to remove all the HLS modules before unloading the application firmware. This ensures that the next reload of the application does not cause a crash.
+
+To remove the HLS modules before unloading the firmware, use the following commands:
+
+```bash
+sudo rmmod $(lsmod | grep hls_ | awk '{print $1}') # Unloads all HLS modules
+sudo lsmod # Verify that HLS modules have been removed
+```
+> **Note**: Ensure that the HLS modules are not in use before executing the `xmutil unload` command.
 
 <!---
 

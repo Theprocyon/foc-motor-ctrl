@@ -37,6 +37,8 @@ Documentation:
 * Adjusted Bokeh server port from 5006 to 3006 to avoid conflicts with the kria-dashboard app.
 * Added notes on minimum speed settings and clarified CANopen test instructions.
 * Corrected firmware naming for consistency.
+* Updated known issues related to system crashes during the FOC application reload and CANopen
+  communication on the KD240-KR260 setup, including reset steps and reminders.
 
 ### Version - v0.4
 
@@ -120,14 +122,23 @@ connects to ground and Yellow/White is Sense(data)
 
 ### Tested Artifacts
 
-**_Platform artifacts_**
+**_KD240 Platform Artifacts_**
 
 | Components                           | Versions           |
 | ------------------------------------ | ------------------ |
 | Ubuntu                               | 24.04 Noble        |
-| Linux kernel                         | 6.8.0-1008-xilinx  |
-| Boot firmware                        | K24-BootFW-01.02   |
+| Linux Kernel                         | 6.8.0-1008-xilinx  |
+| K24 Boot Firmware                    | K24-BootFW-01.02   |
 | xlnx-firmware-kd240-motor-ctrl-qei   | 1.0-0xlnx2         |
+
+**_KR260 Platform Artifacts_**
+
+| Components                           | Versions           |
+| ------------------------------------ | ------------------ |
+| Ubuntu                               | 24.04 Noble        |
+| Linux Kernel                         | 6.8.0-1008-xilinx  |
+| K26 Boot Firmware                    | K26-BootFW-01.02   |
+| xlnx-firmware-kr260-tsn-rs485pmod    | 1.0-0xlnx2         |
 
 To obtain the latest Linux image and boot firmware, refer to the [Kria Wiki](https://xilinx-wiki.atlassian.net/wiki/spaces/A/pages/1641152513/Kria+K26+SOM#Boot-Firmware-Updates).
 
@@ -423,6 +434,7 @@ The following images show what the dashboard looks like when a larger load is ap
   ```bash
   ros2 launch kria_motor_control kd240.system.launch.py
   ```
+  > **Reminder**: Ensure that the motor server on the KD240 is running before executing the script on the KR260. 
 
 * Open a new terminal, start another session of the the same container.
 
@@ -541,6 +553,7 @@ The following images show what the dashboard looks like when a larger load is ap
   ```bash
   ros2 launch kria_motor_control kd240.ros2_control.launch.py
   ```
+  > **Reminder**: Ensure that the motor server on the KD240 is running before executing the script on the KR260.
 
 * Open a new terminal, start another session of the the same container.
 
