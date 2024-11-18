@@ -27,7 +27,7 @@ fi
 # Find the Active_slot column
 ACTIVE_SLOT_COL=$($SUDO xmutil listapps | head -1 | awk '{
 	for (col=1; col<=NF; col++) {
-		if ($col == "Active_slot") {
+		if ($col == "Active_slot" || $col == "slot->handle") {
 			print col  # Print the column for Active_slot
 			exit
 		}
@@ -37,7 +37,10 @@ ACTIVE_SLOT_COL=$($SUDO xmutil listapps | head -1 | awk '{
 # Check if the fw is loaded
 FW_STATUS=$($SUDO xmutil listapps | grep ${FW_NAME} | awk -v col=$ACTIVE_SLOT_COL '{print $col}' | cut -d',' -f1)
 
-if [ "$FW_STATUS" -eq 0 ]; then
+if [ -z "$FW_STATUS" ]; then
+    echo "Firmware '$FW_NAME' is not installed. Please install it before proceeding."
+    exit 1
+elif [ "$FW_STATUS" = "0" ] || [ "$FW_STATUS" = "0->0" ]; then
 	echo "Firmware $FW_NAME is loaded"
 else
 	echo "fw $FW_NAME is not loaded !!"
@@ -62,7 +65,7 @@ fi
 # Suppress high-speed mode warning
 SUPPRESS_ERR="WARNING: High-speed mode not enabled"
 
-# Run the Bokeh server
+# Run the Motor server
 $SUDO ${ENV} \
         ${SERVER} -i ${CAN_IF} -n ${SLAVE_ID}  2> >(grep -v "$SUPPRESS_ERR" >&2) &
 
