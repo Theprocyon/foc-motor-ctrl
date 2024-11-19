@@ -20,7 +20,7 @@ This guide is targeted for Ubuntu® 24.04 and the AMD 2024.1 toolchain.
 
 ## Revision History
 
-### Version - v0.5
+### Version - v0.5.1
 
 Refreshed app for Ubuntu 24.04 compatibility with updates across the library and documentation.
 
@@ -127,7 +127,7 @@ connects to ground and Yellow/White is Sense(data)
 | Components                           | Versions           |
 | ------------------------------------ | ------------------ |
 | Ubuntu                               | 24.04 Noble        |
-| Linux Kernel                         | 6.8.0-1008-xilinx  |
+| Linux Kernel                         | 6.8.0-1009-xilinx  |
 | K24 Boot Firmware                    | K24-BootFW-01.02   |
 | xlnx-firmware-kd240-motor-ctrl-qei   | 1.0-0xlnx2         |
 
@@ -136,7 +136,7 @@ connects to ground and Yellow/White is Sense(data)
 | Components                           | Versions           |
 | ------------------------------------ | ------------------ |
 | Ubuntu                               | 24.04 Noble        |
-| Linux Kernel                         | 6.8.0-1008-xilinx  |
+| Linux Kernel                         | 6.8.0-1009-xilinx  |
 | K26 Boot Firmware                    | K26-BootFW-01.02   |
 | xlnx-firmware-kr260-tsn-rs485pmod    | 1.0-0xlnx2         |
 
@@ -146,7 +146,7 @@ To obtain the latest Linux image and boot firmware, refer to the [Kria Wiki](htt
 
 | Application Package            | ubuntu versions |
 | ------------------------------ | --------------- |
-| xlnx-app-kd240-foc-motor-ctrl  | 0.5-0xlnx1      |
+| xlnx-app-kd240-foc-motor-ctrl  | 0.5.1-0xlnx1      |
 
 
 #### Repositories Information
@@ -154,7 +154,7 @@ To obtain the latest Linux image and boot firmware, refer to the [Kria Wiki](htt
 | Repository                                                                                             | Release Tag                   |
 | ------------------------------------------------------------------------------------------------------ | ----------------------------- |
 | [Kria SOM Vitis Platforms and Overlays](https://github.com/Xilinx/kria-vitis-platforms)                | [v1.0](https://github.com/Xilinx/kria-vitis-platforms/releases/tag/v1.0)        |
-| [Kria FOC Motor Control App](https://github.com/Xilinx/foc-motor-ctrl)                                 | [v0.5](https://github.com/Xilinx/foc-motor-ctrl/tree/v0.5)        |
+| [Kria FOC Motor Control App](https://github.com/Xilinx/foc-motor-ctrl)                                 | [v0.5.1](https://github.com/Xilinx/foc-motor-ctrl/tree/v0.5.1)        |
 | [Kernel drivers for the FOC Motor Control App](https://github.com/Xilinx/motor-control-iio-modules)    | [v0.2](https://github.com/Xilinx/motor-control-iio-modules/releases/tag/v0.2)        |
 
 
