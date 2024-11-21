@@ -43,6 +43,7 @@ Features
    :maxdepth: 1
    :caption: Tutorials
 
+   Linux Boot <docs/kria_starterkit_linux_boot>
    Building the Design Components <docs/building_the_design>
    Building the Hardware Design Using Vivado <docs/build_vivado_design>
    Generate Custom Firmware <docs/generating_custom_firmware>
@@ -79,17 +80,8 @@ Features
 .. important::
    Previous releases:
 
-   * `FOC 0.5 <https://pages.gitenterprise.xilinx.com/techdocs/SOM/kd240/foc-motor-ctrl/0_5/build/html/foc_motor_control_landing.html>`_
+   * `FOC 0.4 <https://pages.gitenterprise.xilinx.com/techdocs/SOM/kd240/foc-motor-ctrl/0_4/build/html/foc_motor_control_landing.html>`_
 
-
-
-
-.. toctree::
-   :maxdepth: 1
-   :caption: Other KD240 Applications
-
-   BIST <https://pages.gitenterprise.xilinx.com/techdocs/SOM/kd240/bist.html>
-   ROS 2 Multi-Node Communications Via TSN <https://pages.gitenterprise.xilinx.com/techdocs/SOM/kd240/ros2_multinode_communication_via_tsn.html>
 
 
 
