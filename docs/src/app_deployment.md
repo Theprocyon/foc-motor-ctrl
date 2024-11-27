@@ -232,6 +232,7 @@ Note: Only one interface can used at a time.
   start_motor_dashboard
   # Enter the sudo password if required and note the ip address of the board
   ```
+    >**NOTE:** To terminate the Bokeh server, use the command `sudo killall bokeh`.
 
   Sample output of the terminal on launching the motor dashboard.
 
@@ -547,6 +548,13 @@ The following images show what the dashboard looks like when a larger load is ap
   The minimum speed can vary by motor.
 
 #### Run a ROS2 Control based example
+
+* Reset the Pmod CAN interface using the following commands on KR260 board:
+
+  ```bash
+  sudo ip link set can0 down
+  sudo ip link set can0 up
+  ```
 
 * In the docker run terminal start the canopen 402 control system host using the launch file
 
