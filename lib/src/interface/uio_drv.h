@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Advanced Micro Devices, Inc.
+ * Copyright (C) 2023-2024 Advanced Micro Devices, Inc.
  * SPDX-License-Identifier: MIT
  */
 #ifndef _UIO_DRV_H_

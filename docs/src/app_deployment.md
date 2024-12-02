@@ -20,7 +20,7 @@ This guide is targeted for Ubuntu® 24.04 and the AMD 2024.1 toolchain.
 
 ## Revision History
 
-### Version - v0.5.1
+### Version - v0.5
 
 Refreshed app for Ubuntu 24.04 compatibility with updates across the library and documentation.
 
@@ -154,7 +154,7 @@ To obtain the latest Linux image and boot firmware, refer to the [Kria Wiki](htt
 | Repository                                                                                             | Release Tag                   |
 | ------------------------------------------------------------------------------------------------------ | ----------------------------- |
 | [Kria SOM Vitis Platforms and Overlays](https://github.com/Xilinx/kria-vitis-platforms)                | [v1.0](https://github.com/Xilinx/kria-vitis-platforms/releases/tag/v1.0)        |
-| [Kria FOC Motor Control App](https://github.com/Xilinx/foc-motor-ctrl)                                 | [v0.5.1](https://github.com/Xilinx/foc-motor-ctrl/tree/v0.5.1)        |
+| [Kria FOC Motor Control App](https://github.com/Xilinx/foc-motor-ctrl)                                 | [v0.5](https://github.com/Xilinx/foc-motor-ctrl/tree/v0.5)        |
 | [Kernel drivers for the FOC Motor Control App](https://github.com/Xilinx/motor-control-iio-modules)    | [v0.2](https://github.com/Xilinx/motor-control-iio-modules/releases/tag/v0.2)        |
 
 
@@ -435,7 +435,7 @@ The following images show what the dashboard looks like when a larger load is ap
   ```bash
   ros2 launch kria_motor_control kd240.system.launch.py
   ```
-  > **Reminder**: Ensure that the motor server on the KD240 is running before executing the script on the KR260. 
+  > **Reminder**: Ensure that the motor server on the KD240 is running before executing the script on the KR260.
 
 * Open a new terminal, start another session of the the same container.
 
