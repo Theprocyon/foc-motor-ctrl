@@ -2,15 +2,11 @@
  * Thep
  * SPDX-License-Identifier: MIT
  */
-<<<<<<< Updated upstream
 
+#ifndef _CMDLINE_H_
+#define _CMDLINE_H_
 #include <string>
 
 #define CUSTOM_CONFIG_PATH ""
-=======
-#ifndef _CMDLINE_H_
-#define _CMDLINE_H_
-
 
 #endif
->>>>>>> Stashed changes
