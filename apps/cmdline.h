@@ -1,4 +1,8 @@
 /*
- * Copyright (C) 2023 Advanced Micro Devices, Inc.
+ * Thep
  * SPDX-License-Identifier: MIT
  */
+
+#include <string>
+
+#define CUSTOM_CONFIG_PATH ""
