@@ -14,6 +14,7 @@
 #include <thread>
 #include "motor-control/motor-control.hpp"
 #include "motordatacollector.h"
+#include "epcl/epcl_variables.h"
 
 using namespace std;
 
@@ -68,4 +69,23 @@ int main()
     delete motor;
 
     return 0;
+}
+
+void UpdateCC(const MotorParam &param)
+{
+    float Wc;
+    float Ra;
+
+    float Kpd = param.Lds * Wc;
+    float Kid_T = (param.Rs + Ra) * Wc * Tsamp;
+    float Kad = 1. / tmpC.Kpd;
+
+    float Kpq = param.Lqs * Wc;
+    float Kiq_T = (param.Rs + Ra) * Wc * Tsamp;
+    float Kaq = 1. / tmpC.Kpq;
+
+    float Krd = tmpC.Kr_Ratio * (param.Rs + Ra) * Wc;
+    float Krq = tmpC.Kr_Ratio * (param.Rs + Ra) * Wc;
+    // float Wres[0] = 6 * param.Wr;
+    // float Wres[1] = 12 * param.Wr;
 }

@@ -3,7 +3,7 @@
 
 #include <cmath>
 
-class MotorParam
+class MotorParam //hardware parameters of motor
 {
     private:
     // float Ias, Ibs, Ics;
