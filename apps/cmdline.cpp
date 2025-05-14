@@ -93,6 +93,17 @@ int main()
     return 0;
 }
 
+void worker()
+{
+    int t = 5;
+    while (t-- > 0)
+    {
+        std::cout << "now t =" << t << std::endl;
+        std::this_thread::sleep_for(std::chrono::seconds(15));
+    }
+    return;
+}
+/*
 void UpdateCC(const MotorParam &param)
 {
     float Wc;
@@ -111,3 +122,4 @@ void UpdateCC(const MotorParam &param)
     // float Wres[0] = 6 * param.Wr;
     // float Wres[1] = 12 * param.Wr;
 }
+    */

@@ -51,6 +51,7 @@ if(BUILD_CMDLINE_APP)
 
 	# Source files for the cmdline app
 	set(SOURCES
+		epcl_variables.cpp
 		cmdline.cpp
 	)
 
