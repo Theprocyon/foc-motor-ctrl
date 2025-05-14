@@ -3,9 +3,9 @@
 
 #include <cmath>
 
-class MotorParam //hardware parameters of motor
+struct MotorParam //hardware parameters of motor
 {
-    private:
+
     // float Ias, Ibs, Ics;
     // float Idss, Iqss;
     // float Idse, Iqse;
@@ -23,8 +23,6 @@ class MotorParam //hardware parameters of motor
     float Lamf, Kt, Inv_Kt;
     float Jm, Bm, Inv_Jm;
     float Bm_per_Jm;
-    public:
-    MotorParam();
     MotorParam(float Pole_Set, float Rs_Set, float Lds_Set, float Lqs_Set, float Lamf_Set, float Jm_Set, float Bm_Set, float Is_Rated_Set, float Inj_Cnt_Max_Set); // MOTIdx, Pole, Rs, Lds, Lqs, Lamf, Jm, Bm, Is_Rated, Inj_Cnt_Max_Set
     // float MTPA_LUT[3][21];
     // float MTPA_dTe;

@@ -12,61 +12,83 @@
 #include <iomanip>
 #include <iostream>
 #include <thread>
+#include "epcl/epcl_variables.h"
 #include "motor-control/motor-control.hpp"
 #include "motordatacollector.h"
-#include "epcl/epcl_variables.h"
 
 using namespace std;
 
+vector<MotorParam> paramsToMonitor = {MotorParam::kVoltagePhaseA,
+                                      MotorParam::kCurrentPhaseA,
+                                      MotorParam::kVoltagePhaseB,
+                                      MotorParam::kCurrentPhaseB,
+                                      MotorParam::kVoltagePhaseC,
+                                      MotorParam::kCurrentPhaseC,
+                                      MotorParam::kId,
+                                      MotorParam::kIq,
+                                      MotorParam::kIalpha,
+                                      MotorParam::kIbeta,
+                                      MotorParam::kRpm,
+                                      MotorParam::kPosition};
+
+auto paramUpdateHandler = [](const MotorData &sample)
+{
+    std::time_t t = sample.timestampMS / 1000;
+    int ms = sample.timestampMS % 1000;
+    std::tm tm = *std::localtime(&t);
+
+    std::cout << "[" << std::put_time(&tm, "%F %T") << "." << std::setw(3) << std::setfill('0')
+              << ms << "]\n";
+
+    for (const auto &[param, values] : sample.data_)
+    {
+        std::cout << "  Param " << static_cast<int>(param) << ": ";
+        for (auto v : values) std::cout << v << " ";
+        std::cout << std::endl;
+    }
+    std::cout << std::endl;
+};
+
 int main()
 {
-    auto motor = std::unique_ptr<MotorControl>(MotorControl::getMotorControlInstance(1234));
+    auto mc = std::unique_ptr<MotorControl>(MotorControl::getMotorControlInstance(1234));
 
-    motor->setOperationMode(MotorOpMode::kModeOpenLoop);
+    if (!mc)
+    {
+        std::cout << "mc == Null" << std::endl;
+        std::abort();
+    }
 
-    vector<MotorParam> params = {MotorParam::kVoltagePhaseA, //로깅할 parameter들
-                                 MotorParam::kCurrentPhaseA,
-                                 MotorParam::kVoltagePhaseB,
-                                 MotorParam::kCurrentPhaseB,
-                                 MotorParam::kVoltagePhaseC,
-                                 MotorParam::kCurrentPhaseC,
-                                 MotorParam::kId,
-                                 MotorParam::kIq,
-                                 MotorParam::kIalpha,
-                                 MotorParam::kIbeta,
-                                 MotorParam::kRpm,
-                                 MotorParam::kPosition};
+    mc->setOperationMode(MotorOpMode::kModeOpenLoop);
 
-    MotorDataCollector collector(motor, params, 256, 1000);
-
-    collector.addUpdateListener(
-        [](const MotorData &sample)
-        {
-            std::time_t t = sample.timestampMS / 1000;
-            int ms = sample.timestampMS % 1000;
-            std::tm tm = *std::localtime(&t);
-
-            std::cout << "[" << std::put_time(&tm, "%F %T") << "." << std::setw(3)
-                      << std::setfill('0') << ms << "]\n";
-
-            for (const auto &[param, values] : sample.data_)
-            {
-                std::cout << "  Param " << static_cast<int>(param) << ": ";
-                for (auto v : values) std::cout << v << " ";
-                std::cout << std::endl;
-            }
-            std::cout << std::endl;
-        });
+    MotorDataCollector collector(mc, paramsToMonitor, 256, 1000);
+    collector.addUpdateListener(paramUpdateHandler);
 
     collector.start();
-    std::this_thread::sleep_for(std::chrono::seconds(5));
+
+    std::vector<std::thread> jobs;
+    try
+    {
+        jobs.emplace_back(worker);
+        std::this_thread::sleep_for(std::chrono::seconds(5));
+        for (auto &t : jobs)
+        {
+            if (t.joinable()) t.join();
+        }
+    }
+    catch (...)
+    {
+        collector.stop();
+        std::cout << "failded to emplace" << std::endl;
+        std::abort();
+    }
     collector.stop();
 
     auto allData = collector.getAllData();
     std::cout << "Recorded: " << allData.size() << "\n";
 
-    motor->setOperationMode(MotorOpMode::kModeOff);
-    delete motor;
+    mc->setOperationMode(MotorOpMode::kModeOff);
+    delete mc;
 
     return 0;
 }
